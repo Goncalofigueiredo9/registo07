@@ -1,5 +1,5 @@
 import psycopg2
-
+import db
 
 class User:
     db = 'db/Utilizadores.xlsx'
@@ -9,7 +9,7 @@ class User:
 
     def reset(self):
         self.id = None
-        self.cliente = ''
+        self.login = ''
         self.email = ''
         self.password = ''
         self.nif = ''
@@ -17,11 +17,9 @@ class User:
         self.morada = ''
 
     def herokudb(self):
-        Host = 'ec2-79-125-64-18.eu-west-1.compute.amazonaws.com'
-        Database = 'd1m09l5402mu21'
-        User = 'hxymqwuweylsvx'
-        Password = '8079173efca206fa73781c774b60e3c33897e547d7515427d23b2b586924850c'
-        return psycopg2.connect(host=Host, database=Database, user=User, password=Password, sslmode='require')
+        from db import DataBase
+        mydb = DataBase()
+        return psycopg2.connect(host=mydb.Host, database=mydb.Database, user=mydb.User, password=mydb.Password, sslmode='require')
 
     def gravar(self, v1, v2, v3):
         ficheiro = self.herokudb()
