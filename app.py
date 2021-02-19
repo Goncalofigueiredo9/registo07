@@ -18,7 +18,7 @@ def route():
             erro = 'A palavra passe não coincide.'
         else:
             usr.gravar(v1, v2, v3)
-    return render_template('registo.html', erro=erro)
+    return render_template('Utilizadores/registo.html', erro=erro)
 
 
 @app.route('/')
@@ -38,7 +38,7 @@ def login():
             erro = 'A palavra passe está errada.'
         else:
             erro = 'Bem-Vindo.'
-    return render_template('login.html', erro=erro)
+    return render_template('Utilizadores/login.html', erro=erro)
 
 
 @app.route('/apagar', methods=['GET', 'POST'])
@@ -54,7 +54,7 @@ def apagar():
         else:
             usr.apaga(v1)
             erro = 'Conta Eliminada com Sucesso.'
-    return render_template('apagar.html', erro=erro)
+    return render_template('Utilizadores/apagar.html', erro=erro)
 
 
 @app.route('/newpasse', methods=['GET', 'POST'])
@@ -73,13 +73,13 @@ def newpasse():
             erro = 'A palavra passe não coincide.'
         else:
             usr.alterar(v1, v2)
-    return render_template('newpasse.html', erro=erro)
+    return render_template('Utilizadores/newpasse.html', erro=erro)
 
 
 @app.route('/search')
 def search():
     dados = usr.lista()
-    return render_template('search.html', search=dados, max=len(dados))
+    return render_template('Utilizadores/search.html', search=dados, max=len(dados))
 
 if __name__ == '__main__':
     app.run(debug=True)
