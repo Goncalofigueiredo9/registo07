@@ -17,6 +17,7 @@ def route():
         elif v3 != v4:
             erro = 'A palavra passe não coincide.'
         else:
+            erro = 'Utilizador criado com Sucesso'
             usr.gravar(v1, v2, v3)
     return render_template('Utilizadores/registo.html', erro=erro)
 
