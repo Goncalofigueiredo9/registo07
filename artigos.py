@@ -1,24 +1,39 @@
 import psycopg2
 import db
 
-class User:
+
+class Artigos:
 
     def __init__(self):
         self.reset()
 
     def reset(self):
         self.id = None
-        self.login = None
-        self.email = ''
-        self.password = ''
-        self.nif = ''
-        self.nome = ''
-        self.morada = ''
+        self.category = None
+        self.brand = None
+        self.description = None
+        self.price = None
+        self.reference = None
+        self.ean = None
+        self.stock = None
+        self.created = None
+        self.updated = None
 
     def herokudb(self):
         from db import DataBase
         mydb = DataBase()
-        return psycopg2.connect(host=mydb.Host, database=mydb.Database, user=mydb.User, password=mydb.Password, sslmode='require')
+        return psycopg2.connect(host=mydb.Host, database=mydb.Database, user=mydb.User, password=mydb.Password,
+                                sslmode='require')
+
+    def inserirA(self, category, brand, description, price):
+        ficheiro = self.herokudb()
+        db = ficheiro.cursor()
+        db.execute("CREATE TABLE IF NOT EXISTS artigos"
+                   "(id serial primary key,category text,brand text, description text, price numeric,"
+                   " reference text, ean text, stock int, created date, updated date)")
+        db.execute("INSERT INTO artigos VALUES (DEFAULT ,%s, %s, %s, %s)", (category, brand, description, price))
+        ficheiro.commit()
+        ficheiro.close()
 
     def apagarusr(self):
         try:
@@ -30,15 +45,6 @@ class User:
         except:
             erro = "A tabela não existe."
         return erro
-
-    def gravar(self, login, email, password):
-        ficheiro = self.herokudb()
-        db = ficheiro.cursor()
-        db.execute("CREATE TABLE IF NOT EXISTS usr"
-                   "(id serial primary key,login text,email text, password text, nif text, nome text, morada text)")
-        db.execute("INSERT INTO usr VALUES (DEFAULT ,%s, %s, %s)", (login, email, self.code(password),))
-        ficheiro.commit()
-        ficheiro.close()
 
     def existe(self, login):
         try:
@@ -83,7 +89,6 @@ class User:
         except:
             valor = ""
         return valor
-
 
     @staticmethod
     def code(passe):
