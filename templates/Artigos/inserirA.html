@@ -2,18 +2,18 @@
 
 {% block body %}
 
-<h2>Criar Conta</h2>
+<h2>Inserir Artigos</h2>
 <fieldset>
-    <legend>Introduza os seus dados</legend>
+    <legend>Introduza o novo Artigos</legend>
     <form method="post">
-        <h4>Utilizador</h4>
-        <input type='text' name='utilizador' required>
-        <h4>Endereço de Email</h4>
-        <input type='text' name='email' required>
-        <h4>Palavra-Passe</h4>
-        <input type='password' name='passe' required>
-        <h4>Confirme a Passe</h4>
-        <input type='password' name='cpasse' required>
+        <h4>Artigos</h4>
+        <input type='text' name='category' required>
+        <h4>Marca</h4>
+        <input type='text' name='brand' required>
+        <h4>Descrição</h4>
+        <input type='text' name='description' required>
+        <h4>Preço</h4>
+        <input type='text' name='price' required>
         <p><br></p>
         <input type='submit' value="Submeter">
     </form>

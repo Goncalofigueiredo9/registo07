@@ -34,8 +34,7 @@ class User:
     def gravar(self, login, email, password):
         ficheiro = self.herokudb()
         db = ficheiro.cursor()
-        db.execute("CREATE TABLE IF NOT EXISTS usr"
-                   "(id serial primary key,login text,email text, password text, nif text, nome text, morada text)")
+        db.execute("CREATE TABLE IF NOT EXISTS usr(id serial primary key,login text,email text, password text, nif text, nome text, moraeda text)")
         db.execute("INSERT INTO usr VALUES (DEFAULT ,%s, %s, %s)", (login, email, self.code(password),))
         ficheiro.commit()
         ficheiro.close()
