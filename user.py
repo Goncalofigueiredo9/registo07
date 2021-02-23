@@ -34,7 +34,7 @@ class User:
     def gravar(self, login, email, password):
         ficheiro = self.herokudb()
         db = ficheiro.cursor()
-        db.execute("CREATE TABLE IF NOT EXISTS usr(id serial primary key,login text,email text, password text, nif text, nome text, moraeda text)")
+        db.execute("CREATE TABLE IF NOT EXISTS usr(id serial primary key,login text,email text, password text, nif text, nome text, morada text)")
         db.execute("INSERT INTO usr VALUES (DEFAULT ,%s, %s, %s)", (login, email, self.code(password),))
         ficheiro.commit()
         ficheiro.close()
@@ -72,6 +72,7 @@ class User:
         ficheiro.commit()
         ficheiro.close()
 
+    @property
     def lista(self):
         try:
             ficheiro = self.herokudb()
@@ -83,6 +84,17 @@ class User:
             valor = ""
         return valor
 
+    @property
+    def campos(self):
+        try:
+            ficheiro = self.herokudb()
+            db = ficheiro.cursor()
+            db.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'usr';")
+            valor = db.fetchall()
+            ficheiro.close()
+        except:
+            valor = ""
+        return valor
 
     @staticmethod
     def code(passe):

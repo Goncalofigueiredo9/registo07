@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://ec2-54-155-208-5.eu-west-1.compute.amazonaws.com:5432/d9rim2o5kabrk1</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Utilizadores" uuid="139c8b7a-b37b-4244-9df8-e06b0ab9667b">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Gonçalo Figueiredo\PycharmProjects\registo07\db\Utilizadores.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
