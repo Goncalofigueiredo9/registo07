@@ -9,15 +9,15 @@ art = Artigos()
 
 @app.route('/inserirA', methods=['GET', 'POST'])
 def inserirA():
-    erro: None
+    erro = None
     if request.method == 'POST':
         v1 = request.form['category']
         v2 = request.form['brand']
         v3 = request.form['description']
         v4 = request.form['price']
-        art.inserirA(v1, v2, v3, v4);
+        art.inserirA(v1, v2, v3, v4)
         erro = "Artigo inserido com sucesso"
-    return render_template('Artigos/inserirA.html', erro=erro,usr=usr, art=art)
+    return render_template('Artigos/inserirA.html', erro=erro, usr=usr, art=art)
 
 @app.route('/editarA', methods=['GET', 'POST'])
 def editarA():
