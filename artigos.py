@@ -22,9 +22,10 @@ class Artigos:
         db = ficheiro.cursor()
         db.execute("CREATE TABLE IF NOT EXISTS categorias (id serial primary key, category text)")
         db.execute("CREATE TABLE IF NOT EXISTS marcas (id serial primary key, brand text)")
-        db.execute("CREATE TABLE IF NOT EXISTS artigos (id serial primary key, category int, brand text,"
+        db.execute("CREATE TABLE IF NOT EXISTS artigos (id serial primary key, category int, brand int,"
                    "description text, price numeric,reference text, ean text, stock int, created date, updated date,"
-                   "CONSTRAINT fk_category foreign key (category) references categorias(id))")
+                   "CONSTRAINT fk_category foreign key (category) references categorias(id),"
+                   "CONSTRAINT fk_brand foreign key (brand) references marcas(id))")
         ficheiro.commit()
         ficheiro.close()
 
@@ -152,12 +153,14 @@ class Artigos:
         try:
             ficheiro = self.herokudb()
             db = ficheiro.cursor()
-            db.execute("SELECT * FROM artigos")
+            db.execute("select artigos.id, c.category, m.brand, description,"
+                       "price from artigos join categorias c on artigos.category = c.id join marcas m on artigos.brand = m.id")
             valor = db.fetchall()
             ficheiro.close()
         except:
             valor = ""
         return valor
+
 
     @property
     def listaC(self):
@@ -193,6 +196,7 @@ class Artigos:
             ficheiro.close()
         except:
             valor = ""
+        valor = [('numero',), ('categorias',), ('marcas',), ('descriçao',), ('preço',)]
         return valor
 
     @staticmethod
