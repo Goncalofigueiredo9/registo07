@@ -149,12 +149,18 @@ class Artigos:
         ficheiro.close()
 
     @property
+    def campos(self):
+        return [('numero',), ('categorias',), ('marcas',), ('descriçao',), ('preço',)]
+
+
+    @property
     def lista(self):
         try:
             ficheiro = self.herokudb()
             db = ficheiro.cursor()
-            db.execute("select artigos.id, c.category, m.brand, description,"
-                       "price from artigos join categorias c on artigos.category = c.id join marcas m on artigos.brand = m.id")
+            db.execute('SET lc_monetary TO "pt_PT.utf8"')
+            db.execute("SELECT artigos.id, c.category, m.brand, description, price::MONEY FROM artigos "
+                       "JOIN categorias c ON artigos.category = c.id JOIN marcas m ON m.id = artigos.brand")
             valor = db.fetchall()
             ficheiro.close()
         except:
@@ -184,19 +190,6 @@ class Artigos:
             ficheiro.close()
         except:
             valor = ""
-        return valor
-
-    @property
-    def campos(self):
-        try:
-            ficheiro = self.herokudb()
-            db = ficheiro.cursor()
-            db.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'artigos';")
-            valor = db.fetchall()
-            ficheiro.close()
-        except:
-            valor = ""
-        valor = [('numero',), ('categorias',), ('marcas',), ('descriçao',), ('preço',)]
         return valor
 
     @staticmethod
